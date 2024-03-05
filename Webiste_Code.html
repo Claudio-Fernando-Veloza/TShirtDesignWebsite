@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T-Shirt Designer</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  #tshirtContainer {
+    position: relative;
+  }
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
+</head>
+<body>
+<div id="tshirtContainer">
+  <img src="images/9TpbLzKXc.gif" alt="T-Shirt" id="tshirtImage">
+  <canvas id="tshirtCanvas" width="400" height="400"></canvas>
+</div>
+<div id="toolbar">
+  <label for="colorPicker">Color:</label>
+  <input type="color" id="colorPicker">
+  <button onclick="clearCanvas()">Clear</button>
+  <button onclick="saveImage()">Save</button>
+</div>
+
+<script>
+  const canvas = document.getElementById('tshirtCanvas');
+  const context = canvas.getContext('2d');
+
+  let painting = false;
+
+  function startPosition(e) {
+    painting = true;
+    draw(e);
+  }
+
+  function endPosition() {
+    painting = false;
+    context.beginPath();
+  }
+
+  function draw(e) {
+    if (!painting) return;
+    context.lineWidth = 5;
+    context.lineCap = 'round';
+    context.strokeStyle = document.getElementById('colorPicker').value;
+
+    context.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+    context.stroke();
+    context.beginPath();
+    context.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+  }
+
+  function clearCanvas() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function saveImage() {
+    const imgData = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = imgData;
+    link.download = 'my_tshirt_design.png';
+    link.click();
+  }
+
+  canvas.addEventListener('mousedown', startPosition);
+  canvas.addEventListener('mouseup', endPosition);
+  canvas.addEventListener('mousemove', draw);
+</script>
+</body>
+</html>

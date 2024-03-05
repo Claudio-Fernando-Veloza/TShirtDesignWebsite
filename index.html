@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T Shirt Design Factory</title>
+<link rel="stylesheet" href="TshirtWebsite.css">
+</head>
+<body>
+<div id="container">
+  <h1>T Shirt Design Factory</h1>
+  <div id="tshirtContainer">
+    <img src="images/9TpbLzKXc.gif" alt="T-Shirt" id="tshirtImage">
+    <canvas id="tshirtCanvas" width="400" height="400"></canvas>
+  </div>
+  <div id="toolbar">
+    <label for="colorPicker">Color:</label>
+    <input type="color" id="colorPicker">
+    <button onclick="clearCanvas()">Clear</button>
+    <button onclick="saveImage()">Save</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
